@@ -32,7 +32,8 @@ with the translation spreadsheet by [/u/kitsune547](https://www.reddit.com/user/
       `G:\Path\To\PS4Macro.exe --StartupFile="G:\Path\To\ColdTranslation.dll"`
       Allows the plugin to be loaded directly
 5. Click the start button <img style="width:75%" src="./docs/images/macro_buttons.jpg" />
-6. Reposition the PS4Remote Play window and the DialogBox however you like
+6. Reposition the PS4Remote Play window and the DialogBox however you like 
+ (by _click_drag_ anywhere __near__, not on, the grey background/label)
     - If the plugin is stopped via the Ps4Macro stop button, the location of the DialogBox window is saved
 7. Load a translation spreadsheet by fast-loading the last one or picking one via the dialog
     - The spreadsheet must be in `XLSX` format, obtain by downloading from the Google Spreadsheet
