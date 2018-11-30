@@ -96,12 +96,9 @@ with the translation spreadsheet by [/u/kitsunes547](https://www.reddit.com/user
 <img style="width:75%" src="./docs/images/Screen4.jpg" />
 <img style="width:75%" src="./docs/images/Screen5.jpg" />
 
-Stutterers are due to capture.
+Stutterers are due to gif.
 
-<video width="664" height="450" controls>
-  <source src="./docs/images/example.mp4" type="video/mp4">
-Your browser does not support the video tag.
-</video>
+<img style="width:75%" src="./docs/images/example.gif" />
 
 
 
