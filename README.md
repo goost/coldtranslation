@@ -23,9 +23,11 @@ with the translation spreadsheet by [/u/kitsunes547](https://www.reddit.com/user
 ## Installation
 
 1. Download and install/extract [PS4Macro](https://github.com/komefai/PS4Macro)
-2. Download the latest release of this plugin from the release page (it is a `dll`)
+2. Download the latest release of this plugin from the [tags](https://github.com/goost/coldtranslation/releases/)
+   page
+1. Extract the downloaded release in a folder, the folder should contain two `dlls`.
 3. Start PS4 Remote Play, start PS4Macro
-4. Load the script via PS4Macro <img style="width:75%" src="./docs/images/macro_open.jpg" />
+4. Load the script (`ColdTranslation.dll`) via PS4Macro <img style="width:75%" src="./docs/images/macro_open.jpg" />
     - A ShortCut to PS4Macro with a Target of
       `G:\Path\To\PS4Macro.exe --StartupFile="G:\Path\To\ColdTranslation.dll"`
       Allows the plugin to be loaded directly
