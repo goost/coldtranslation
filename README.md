@@ -1,7 +1,7 @@
 # Cold Translation - Alpha Release
 
 A [PS4Macro](https://github.com/komefai/PS4Macro) plugin (Windows) for playing Sen no Kiseki III (and hopefully IV)
-with the translation spreadsheet by [/u/kitsunes547](https://www.reddit.com/user/kitsune547).
+with the translation spreadsheet by [/u/kitsune547](https://www.reddit.com/user/kitsune547).
 
 ## Features
 
