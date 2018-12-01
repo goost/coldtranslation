@@ -17,6 +17,7 @@ namespace ColdTranslation
         private EventHandler CurrentTicker { get; set; } = (s, e) => { };
         private Settings Settings { get; }
         private Translation CurrentTranslation { get; set; }
+        private bool Hide { get; set; }
        
         public DialogBoxForm()
         {
@@ -35,7 +36,8 @@ namespace ColdTranslation
             label_speech.BackColor = textBackColor;
             label_speaker.BackColor = textBackColor;
             label_extra.BackColor = textBackColor;
-            
+            label_speaker.Visible = !Settings.HideSpeaker;
+
             KeyPreview = true;
             KeyDown += KeyDownHandler;
             KeyUp += KeyUpHandler;
@@ -109,8 +111,16 @@ namespace ColdTranslation
             if (e.Alt || e.Shift || e.Control) return;
             switch (e.KeyCode)
             {
+                case Keys.PageDown:
+                    Hide = !Hide;
+                    label_speech.Visible = !Hide;
+                    label_extra.Visible = !Hide;
+                    label_speaker.Visible = !Hide;
+                    if (!Hide) label_speaker.Visible = !Settings.HideSpeaker;
+                    break;
                 case Keys.End:
                     Settings.HideSpeaker = !Settings.HideSpeaker;
+                    label_speaker.Visible = !Settings.HideSpeaker;
                     Settings.Serialize(Settings.SettingsPath, Settings);
                     break;
                 case Keys.Left:
@@ -180,7 +190,7 @@ namespace ColdTranslation
 
         private void SetTranslation(Translation translation)
         {
-            label_speaker.Text = Settings.HideSpeaker ? "" : translation.Speaker;
+            label_speaker.Text = translation.Speaker;
             var argb = 0;
             if (!string.IsNullOrEmpty(translation.Color))
             {
@@ -210,8 +220,10 @@ namespace ColdTranslation
             var currentIndex = 0;
             var array = speech.ToCharArray();
             label_speech.Text = "";
+            var delay = 40 / timer.Interval;
             return (sender, e) =>
             {
+                if (delay-- >= 0) return;
                 label_speech.Text = $"{label_speech.Text}{array[currentIndex++]}";
                 if (currentIndex >= array.Length)
                 {
