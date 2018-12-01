@@ -88,6 +88,7 @@ with the translation spreadsheet by [/u/kitsune547](https://www.reddit.com/user/
   Or not a spreadsheet at all.
 
 ## Version
+- 0.2.0 - ALPHA: Now "Hide All Text" Shortcut
 - 0.1.0 - ALPHA: First public release
 
 ## Screenshots (minor spoilers in GIF (major for Japanese readers))
