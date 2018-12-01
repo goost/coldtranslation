@@ -18,7 +18,8 @@ with the translation spreadsheet by [/u/kitsune547](https://www.reddit.com/user/
 - `Arrow Key Right`: Next Line
 - `Arrow Key Left`: Previous Line
 - `Arrow Key Up`: Previous Line
-- `Key End`: Show/Hide Speaker Name (on next line change)
+- `Key End`: Show/Hide Speaker Name
+- `Key Page Down`: Show/Hide all the text
 
 ## Installation
 
