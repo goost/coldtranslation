@@ -59,7 +59,7 @@ namespace ColdTranslation
                 CurrentRow = last.Row == 0 ? 3 : last.Row;
                 if (string.IsNullOrEmpty(CurrentSheet.Cells[CurrentRow, 1].Text)
                     && !string.IsNullOrEmpty(CurrentSheet.Cells[CurrentRow, 2].Text)
-                    && !CurrentSheet.Cells[CurrentRow, 2].Text.Contains("<"))
+                    && !CurrentSheet.Cells[CurrentRow, 2].Text.Contains(">"))
                 {
                     var row = CurrentRow - 1;
                     do
@@ -93,7 +93,7 @@ namespace ColdTranslation
             var speech = speechCell.RichText.Text;
             if (string.IsNullOrEmpty(speaker) 
                 && !string.IsNullOrEmpty(speech)
-                && !CurrentSheet.Cells[CurrentRow, 2].Text.Contains("<"))
+                && !CurrentSheet.Cells[CurrentRow, 2].Text.Contains(">"))
             {
                 speaker = LastSpeaker;
             }
