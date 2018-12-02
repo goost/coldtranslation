@@ -99,6 +99,9 @@ namespace ColdTranslation
             if (e.Alt || e.Shift || e.Control) return;
             switch (e.KeyCode)
             {
+                case Keys.Up:
+                    Advance = true;
+                    break;
                 case Keys.Down:
                     Advance = true;
                     break;
@@ -124,8 +127,10 @@ namespace ColdTranslation
                     Settings.Serialize(Settings.SettingsPath, Settings);
                     break;
                 case Keys.Left:
-                case Keys.Up:
                     SetTranslation(TranslationReader.Previous());
+                    break;
+                case Keys.Up:
+                    Advance = false;
                     break;
                 case Keys.Right:
                     SetTranslation(TranslationReader.Next());
