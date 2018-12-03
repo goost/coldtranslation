@@ -17,7 +17,7 @@ with the translation spreadsheet by [/u/kitsune547](https://www.reddit.com/user/
 - `Arrow Key Down`: Next Line _and_ simulate press of ○ (`Circle`).
 - `Arrow Key Right`: Next Line
 - `Arrow Key Left`: Previous Line
-- `Arrow Key Up`: Previous Line
+- `Arrow Key Up`: Simulate press of ○ (`Circle`)
 - `Key End`: Show/Hide Speaker Name
 - `Key Page Down`: Show/Hide all the text
 
@@ -88,8 +88,9 @@ with the translation spreadsheet by [/u/kitsune547](https://www.reddit.com/user/
   Or not a spreadsheet at all.
 
 ## Version
-- 0.2.0 - ALPHA: Now "Hide All Text" Shortcut
-- 0.1.0 - ALPHA: First public release
+- v0.3.1 - ALPHA: __BREAKING__ Function of `Arrow Key Up` changed to simulate `Circle` press
+- v0.2.0 - ALPHA: Now "Hide All Text" Shortcut
+- v0.1.0 - ALPHA: First public release
 
 ## Screenshots (minor spoilers in GIF (major for Japanese readers))
 
