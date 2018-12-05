@@ -46,12 +46,11 @@ with the translation spreadsheet by [/u/kitsune547](https://www.reddit.com/user/
 10. Play the game via controller, progress through dialog via the arrow keys
     - Progressing through the dialog via the `Arrow Key Down` allows one to progress
       mostly in sync with the game dialog.
-    - Out-of-sync errors can be corrected by using the other arrow keys, to advance or revert the translated dialog.
-
+    - Out-of-sync errors can be corrected by using the other arrow keys.
 
 ## Known Bugs and Limitations
 
-- __This is an alpha release! Although I played for a day without major problems, things may be broken!__
+- __This is an alpha release! Although I played Sen3 from Ch3 to the End without major problems, things may be broken!__
 - The DialogBox window needs focus to work.
 - The DialogBox is designed with a resolution of 1920x1080 in mind.
 - Due to the structure of the spreadsheet, it is not always possible
@@ -66,8 +65,8 @@ with the translation spreadsheet by [/u/kitsune547](https://www.reddit.com/user/
 - Currently this plugin is written solely for the Sen no Kiseki III translation spreadsheet by [/u/kitsune547](https://www.reddit.com/user/kitsune547).
 - Currently, only the _A, B and C_ cells are displayed, _A_ is assumed to contain the speaker,
   _B_ the speech and _C_ further Notes etc.
-  Furthermore, the first two rows are assumed to be not speech.
-  Most of the time this works out, so far I only saw a few instances where further cells have been used.
+  Furthermore, the first two rows are assumed not  to be speech.
+  Most of the time this works out, so far I only saw a few instances (~3) where further cells have been used.
   (The Prologue sheet of the Sen III translation is therefore broken for a few lines,
   just progress manually to the first correct line)
 - If there is no blank line in the spreadsheet during a cutscene change,
