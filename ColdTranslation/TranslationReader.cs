@@ -50,14 +50,15 @@ namespace ColdTranslation
                 _package = new ExcelPackage(new FileInfo(path));
                 _package.Compatibility.IsWorksheets1Based = false;
 
-                var selection = new SelectSheetForm(_package.Workbook.Worksheets.Select(s => s.Name).ToList());
+                var selection = new SelectSheetForm(_package.Workbook.Worksheets.Select(s => s.Name).ToList(), Settings.Sen4Mode);
                 selection.ShowDialog(owner);
                 CurrentSheet = _package.Workbook.Worksheets[selection.SelectedSheet];
+                Settings.Sen4Mode = selection.IsSen4Mode;
                 selection.Close();
 
                 var last = Settings.LastRows.Find(it => it.Sheet == $"{_package.File.Name}:{CurrentSheet.Name}");
                 CurrentRow = last.Row == 0 ? 3 : last.Row;
-                if (string.IsNullOrEmpty(CurrentSheet.Cells[CurrentRow, 1].Text)
+                if (!Settings.Sen4Mode && string.IsNullOrEmpty(CurrentSheet.Cells[CurrentRow, 1].Text)
                     && !string.IsNullOrEmpty(CurrentSheet.Cells[CurrentRow, 2].Text)
                     && !CurrentSheet.Cells[CurrentRow, 2].Text.Contains(">"))
                 {
@@ -91,7 +92,7 @@ namespace ColdTranslation
             var speechCell = CurrentSheet.Cells[CurrentRow, 2];
 
             var speech = speechCell.RichText.Text;
-            if (string.IsNullOrEmpty(speaker) 
+            if (!Settings.Sen4Mode && string.IsNullOrEmpty(speaker) 
                 && !string.IsNullOrEmpty(speech)
                 && !CurrentSheet.Cells[CurrentRow, 2].Text.Contains(">"))
             {

@@ -1,6 +1,6 @@
 # Cold Translation - Alpha Release
 
-A [PS4Macro](https://github.com/komefai/PS4Macro) plugin (Windows) for playing Sen no Kiseki III (and hopefully IV)
+A [PS4Macro](https://github.com/komefai/PS4Macro) plugin (Windows) for playing Sen no Kiseki III and IV
 with the translation spreadsheet by [/u/kitsune547](https://www.reddit.com/user/kitsune547).
 
 ## Features
@@ -20,6 +20,7 @@ with the translation spreadsheet by [/u/kitsune547](https://www.reddit.com/user/
 - `Arrow Key Up`: Simulate press of ○ (`Circle`)
 - `Key End`: Show/Hide Speaker Name
 - `Key Page Down`: Show/Hide all the text
+- `Key Delete`: Show/Hide the extra text
 
 ## Installation
 
@@ -50,24 +51,25 @@ with the translation spreadsheet by [/u/kitsune547](https://www.reddit.com/user/
 
 ## Known Bugs and Limitations
 
-- __This is an alpha release! Although I played Sen3 from Ch3 to the End without major problems, things may be broken!__
+- __This is an alpha release! Although I played Sen III from Ch3 to the End without major problems, things may be broken!__
 - The DialogBox window needs focus to work.
 - The DialogBox is designed with a resolution of 1920x1080 in mind.
-- Due to the structure of the spreadsheet, it is not always possible
+- Due to the structure of the spreadsheet for Sen III, it is not always possible
  to determine the speaker.
- The script currently always shows the last _explicitly_ stated name,
+ In Sen III speaker mode, the script currently always shows the last _explicitly_ stated name,
  which makes system messages etc. have a speaker name too.
  A little flexibility is made possible via the `Show/Hide Speaker` shortcut.
+ This is no issue in Sen IV speaker mode, as the Sen IV spreadsheet has the speaker on every line.
 - The location if the DialogBox window is only saved, if one stops the script
  via the _Stop Button_ of PS4Macro (not by closing directly).
  This seems to be a limitation of PS4Macro and/or my current knowledge of C# Desktop development.
  After saving once, the DialogBox is auto repositioned on start to this location.
-- Currently this plugin is written solely for the Sen no Kiseki III translation spreadsheet by [/u/kitsune547](https://www.reddit.com/user/kitsune547).
+- Currently this plugin is written solely for the Sen no Kiseki III and IV translation spreadsheet by [/u/kitsune547](https://www.reddit.com/user/kitsune547).
 - Currently, only the _A, B and C_ cells are displayed, _A_ is assumed to contain the speaker,
   _B_ the speech and _C_ further Notes etc.
   Furthermore, the first two rows are assumed not  to be speech.
-  Most of the time this works out, so far I only saw a few instances (~3) where further cells have been used.
-  (The Prologue sheet of the Sen III translation is therefore broken for a few lines,
+  Most of the time this works out, so far I only saw a few instances where further cells have been used.
+  (The Prologue sheet of the Sen III and Sen IV translation is therefore broken for a few lines,
   just progress manually to the first correct line)
 - If there is no blank line in the spreadsheet during a cutscene change,
   the first line of the upcoming cutscene will be spoilered on progression
@@ -83,12 +85,14 @@ with the translation spreadsheet by [/u/kitsune547](https://www.reddit.com/user/
 - It is not pretty.
 - There may be memory leaks.
 - It is not possible to quickly skip-read ahead like with the spreadsheet on a separate monitor.
-- All kinds of things will break if another `XLSX` file besides the Sen no Kiseki III translation spreadsheet is loaded.
+- All kinds of things will break if another `XLSX` file besides the Sen no Kiseki III/IV translation spreadsheet is loaded.
   Or not a spreadsheet at all.
 
 ## Version
+- v0.5.0 - ALPHA: Add Speaker-Mode selection (no more guessing needed for Sen4)
+- v0.4.0 - ALPHA: Add "Hide Extra" shortcut
 - v0.3.1 - ALPHA: __BREAKING__ Function of `Arrow Key Up` changed to simulate `Circle` press
-- v0.2.0 - ALPHA: Now "Hide All Text" Shortcut
+- v0.2.0 - ALPHA: Add "Hide All Text" Shortcut
 - v0.1.0 - ALPHA: First public release
 
 ## Screenshots (minor spoilers in GIF (major for Japanese readers))

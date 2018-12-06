@@ -22,6 +22,7 @@ namespace ColdTranslation
         public string LastTranslationSheet { get; set; } = "";
         public Point Location { get; set; } = new Point(0,0);
         public bool HideSpeaker { get; set; }
+        public bool Sen4Mode { get; set; }
 
         public static void Serialize(string path, Settings settings)
         {
