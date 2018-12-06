@@ -69,8 +69,8 @@ with the translation spreadsheet by [/u/kitsune547](https://www.reddit.com/user/
   _B_ the speech and _C_ further Notes etc.
   Furthermore, the first two rows are assumed not  to be speech.
   Most of the time this works out, so far I only saw a few instances where further cells have been used.
-  (The Prologue sheet of the Sen III and Sen IV translation is therefore broken for a few lines,
-  just progress manually to the first correct line)
+  (__The Prologue sheet of the Sen III and Sen IV translation is therefore broken for a few lines,
+  just progress manually via `Arrow Key Right` to the first correct line__)
 - If there is no blank line in the spreadsheet during a cutscene change,
   the first line of the upcoming cutscene will be spoilered on progression
   (this sounds worse than it actually is during gameplay).
