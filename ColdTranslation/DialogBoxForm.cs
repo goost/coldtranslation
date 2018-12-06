@@ -17,7 +17,8 @@ namespace ColdTranslation
         private EventHandler CurrentTicker { get; set; } = (s, e) => { };
         private Settings Settings { get; }
         private Translation CurrentTranslation { get; set; }
-        private bool Hide { get; set; }
+        private bool HideAll { get; set; }
+        private bool HideExtra { get; set; }
        
         public DialogBoxForm()
         {
@@ -115,11 +116,19 @@ namespace ColdTranslation
             switch (e.KeyCode)
             {
                 case Keys.PageDown:
-                    Hide = !Hide;
-                    label_speech.Visible = !Hide;
-                    label_extra.Visible = !Hide;
-                    label_speaker.Visible = !Hide;
-                    if (!Hide) label_speaker.Visible = !Settings.HideSpeaker;
+                    HideAll = !HideAll;
+                    label_speech.Visible = !HideAll;
+                    label_extra.Visible = !HideAll;
+                    label_speaker.Visible = !HideAll;
+                    if (!HideAll)
+                    {
+                        label_speaker.Visible = !Settings.HideSpeaker;
+                        label_extra.Visible = !HideExtra;
+                    }
+                    break;
+                case Keys.Delete:
+                    HideExtra = !HideExtra;
+                    label_extra.Visible = !HideExtra;
                     break;
                 case Keys.End:
                     Settings.HideSpeaker = !Settings.HideSpeaker;
