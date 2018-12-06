@@ -21,6 +21,7 @@ with the translation spreadsheet by [/u/kitsune547](https://www.reddit.com/user/
 - `Key End`: Show/Hide Speaker Name
 - `Key Page Down`: Show/Hide all the text
 - `Key Delete`: Show/Hide the extra text
+- `Key Home`: Show/Hide the taskbar
 
 ## Installation
 
@@ -89,6 +90,7 @@ with the translation spreadsheet by [/u/kitsune547](https://www.reddit.com/user/
   Or not a spreadsheet at all.
 
 ## Version
+- v0.6.0 - ALPHA: Add shortcut for showing/hiding the taskbar
 - v0.5.0 - ALPHA: Add Speaker-Mode selection (no more guessing needed for Sen4)
 - v0.4.0 - ALPHA: Add "Hide Extra" shortcut
 - v0.3.1 - ALPHA: __BREAKING__ Function of `Arrow Key Up` changed to simulate `Circle` press

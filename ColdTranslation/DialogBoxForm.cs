@@ -19,6 +19,7 @@ namespace ColdTranslation
         private Translation CurrentTranslation { get; set; }
         private bool HideAll { get; set; }
         private bool HideExtra { get; set; }
+        private bool HideTaskBar { get; set; } = true;
        
         public DialogBoxForm()
         {
@@ -115,6 +116,13 @@ namespace ColdTranslation
             if (e.Alt || e.Shift || e.Control) return;
             switch (e.KeyCode)
             {
+                case Keys.Home:
+                    HideTaskBar = !HideTaskBar;
+                    var command = HideTaskBar ? SW_HIDE : SW_SHOW;
+                    var hwnd = FindWindow("Shell_TrayWnd", "");
+                    ShowWindow(hwnd, command);
+                    Application.OpenForms[Name].Focus();
+                    break;
                 case Keys.PageDown:
                     HideAll = !HideAll;
                     label_speech.Visible = !HideAll;
