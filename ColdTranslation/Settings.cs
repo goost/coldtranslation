@@ -1,47 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.IO;
-using System.Reflection;
-using System.Runtime.Serialization;
-using System.Xml.Serialization;
-
-namespace ColdTranslation
-{
-    [Serializable]
-    public struct LastRow
-    {
-        public string Sheet { get; set; }
-        public int Row { get; set; }
-    }
-    public class Settings
-    {
-        public static readonly string SettingsPath =
-            Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "ColdTranslation.xml");
-        public List<LastRow> LastRows { get; set; } = new List<LastRow>();
-        public string LastTranslationSheet { get; set; } = "";
-        public Point Location { get; set; } = new Point(0,0);
-        public bool HideSpeaker { get; set; }
-        public bool Sen4Mode { get; set; }
-
-        public static void Serialize(string path, Settings settings)
-        {
-            var serializer = new XmlSerializer(typeof(Settings));
-            using (TextWriter writer = new StreamWriter(path))
-            {
-                serializer.Serialize(writer, settings);
-            }
+﻿namespace ColdTranslation.Properties {
+    
+    
+    // This class allows you to handle specific events on the settings class:
+    //  The SettingChanging event is raised before a setting's value is changed.
+    //  The PropertyChanged event is raised after a setting's value is changed.
+    //  The SettingsLoaded event is raised after the setting values are loaded.
+    //  The SettingsSaving event is raised before the setting values are saved.
+    internal sealed partial class Settings {
+        
+        public Settings() {
+            // // To add event handlers for saving and changing settings, uncomment the lines below:
+            //
+            // this.SettingChanging += this.SettingChangingEventHandler;
+            //
+            // this.SettingsSaving += this.SettingsSavingEventHandler;
+            //
         }
-
-        public static Settings Deserialize(string path)
-        {
-            var deserializer = new XmlSerializer(typeof(Settings));
-            using (TextReader reader = new StreamReader(path))
-            {
-                var obj = deserializer.Deserialize(reader);
-                var settings = obj as Settings;
-                return settings;
-            }
+        
+        private void SettingChangingEventHandler(object sender, System.Configuration.SettingChangingEventArgs e) {
+            // Add code to handle the SettingChangingEvent event here.
+        }
+        
+        private void SettingsSavingEventHandler(object sender, System.ComponentModel.CancelEventArgs e) {
+            // Add code to handle the SettingsSaving event here.
         }
     }
 }
