@@ -49,18 +49,6 @@ namespace ColdTranslation.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0, 0")]
-        public global::System.Windows.Point Location {
-            get {
-                return ((global::System.Windows.Point)(this["Location"]));
-            }
-            set {
-                this["Location"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
         public bool Sen4Mode {
             get {
@@ -91,6 +79,18 @@ namespace ColdTranslation.Properties {
             }
             set {
                 this["UpgradeRequired"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0,0")]
+        public global::System.Windows.Point Location {
+            get {
+                return ((global::System.Windows.Point)(this["Location"]));
+            }
+            set {
+                this["Location"] = value;
             }
         }
     }
