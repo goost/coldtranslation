@@ -49,7 +49,7 @@ namespace ColdTranslation.Views
                             KeyTime.FromTimeSpan(TimeSpan.FromMilliseconds(currentTime))
                         );
                         sa.KeyFrames.Add(k);
-                        currentTime += 12;
+                        currentTime += 9;
                     }
                 }
 

@@ -10,20 +10,23 @@ open System.Windows.Threading
 
 
 module App =
+  let timer = new System.Timers.Timer(500.)
+
   type Model =
     { Translation: Translation.Model
-      Interception: Interception.Model}
+      Interception: Interception.Model }
+
+  type Msg =
+    | Pick
+    | LoadLast
+    | Exit
+    | InterceptionMsg of Interception.Msg
+    | TranslationMsg of Translation.Msg
 
   let init () =
     { Translation = Translation.init
       Interception = Interception.init },
-    Cmd.none
-
-  type Msg =
-    | Pick
-    | Exit
-    | InterceptionMsg of Interception.Msg
-    | TranslationMsg of Translation.Msg
+      Cmd.none
 
   let confirmExit () =
     if MessageBox.Show 
@@ -42,10 +45,11 @@ module App =
     | Pick -> init ()
     | Exit -> m, Cmd.attemptFunc confirmExit () raise
     | InterceptionMsg msg ->
-      { m with Interception = Interception.update msg m.Interception}, Cmd.none
+      let nm,cmd = Interception.update msg m.Interception
+      { m with Interception =nm}, Cmd.map InterceptionMsg cmd
     | TranslationMsg msg ->
-      let nt,cmd = Translation.update msg m.Translation
-      { m with Translation = nt}, Cmd.map TranslationMsg cmd
+      let nm,cmd = Translation.update msg m.Translation
+      { m with Translation = nm}, Cmd.map TranslationMsg cmd
 
   let bindings model dispatch =
     [
@@ -53,12 +57,26 @@ module App =
       (fun m -> m.Translation)
       Translation.bindings
       TranslationMsg
+    "Interception" |> Binding.subModel 
+      (fun m -> m.Interception)
+      Interception.bindings
+      InterceptionMsg
     "Exit"    |> Binding.cmd (fun m -> Exit)
     ]
+
+  let timerTick dispatch =
+    timer.AutoReset <- false
+    timer.Elapsed.Add (fun _ -> 
+      dispatch <| InterceptionMsg Interception.Msg.Init
+      timer.Stop()
+      timer.Dispose()
+    )
+    timer.Start()
 
   let subscription model =
     Cmd.batch [ Cmd.map InterceptionMsg (Interception.subscribe model.Interception)
                 Cmd.map TranslationMsg (Translation.subscribe model.Translation)
+                Cmd.ofSub timerTick
                 ]
 
 let createWindow () =
@@ -77,8 +95,8 @@ let createWindow () =
     )
   window.Closed.AddHandler
     (fun _ _ ->
-      Interceptor.StopInjection()
       Settings.Default.Save()
+      Interceptor.StopInjection()
     )
   window
 
@@ -93,8 +111,8 @@ let main argv =
   let window = createWindow()
 
   Interceptor.InjectionMode <- InjectionMode.Compatibility
- // let pid = Interceptor.Inject()
- // printfn "%i" pid
+  Interceptor.EmulateController <- false
+
   let d m : Func<'T> = Func<'T>(fun () -> m )
   let u = {
     Program.init = App.init
@@ -105,10 +123,10 @@ let main argv =
     onError = fun _ -> Interceptor.StopInjection()
     syncDispatch = fun m ->  Application.Current.Dispatcher.Invoke(d m)
   }
-  //let p = Program.mkProgram App.init App.update App.bindings
+  let p = Program.mkProgram App.init App.update App.bindings
   
   
-  u
+  p
   |> Program.withErrorHandler (fun _ -> Interceptor.StopInjection())
   |> Program.withSubscription App.subscription
   |> Program.withConsoleTrace

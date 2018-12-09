@@ -34,10 +34,15 @@
         <TextBlock Name="SpeechBoxHidden" Visibility="Collapsed" Margin="10,25,0,0"  TextWrapping="WrapWithOverflow" Text="{Binding Translation.Speech, NotifyOnTargetUpdated=True}" VerticalAlignment="Top"  Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" FontSize="24" Background="{StaticResource TextBackground}" FontWeight="Bold" HorizontalAlignment="Left" Padding="0" />
         <TextBlock Name="SpeechBox" Visibility=" Visible" Margin="10,5,0,0"  TextWrapping="WrapWithOverflow" Foreground="{Binding Translation.Color}"  VerticalAlignment="Top"  Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" FontSize="24" Background="{StaticResource TextBackground}" FontWeight="Bold" HorizontalAlignment="Left" Padding="0" />
         <TextBlock Name="ExtraBox" HorizontalAlignment="Left" Margin="3,3,0,0" TextWrapping="WrapWithOverflow" Text="{Binding Translation.Extra}" VerticalAlignment="Top" Grid.Row="2" Grid.Column="0" FontFamily="Meiryo UI" Background="{StaticResource TextBackground}" FontWeight="Bold" FontSize="16" Padding="0" />
-        <Button Name="PickSheetButton" Visibility="{Binding Translation.Init, Converter={StaticResource VisibilityConverter}}" Content="Pick Sheet" Grid.Row="0" Grid.Column="1" Margin="2"/>
-        <Button Name="LastSheetButton" Visibility="{Binding Translation.Init, Converter={StaticResource VisibilityConverter}}" Command="{Binding Translation.LoadLast}" Content="Last Sheet" Grid.Row="0" Grid.Column="2" Margin="2"/>
+        <Button Name="PickSheetButton" Visibility="{Binding Translation.InitInverse, Converter={StaticResource VisibilityConverter}}" Content="Pick Sheet" Grid.Row="0" Grid.Column="1" Margin="2"/>
+        <Button Name="LastSheetButton" Visibility="{Binding Translation.InitInverse, Converter={StaticResource VisibilityConverter}}" Command="{Binding Translation.LoadLast}" Content="Last Sheet" Grid.Row="0" Grid.Column="2" Margin="2"/>
         <Button Name="ExitButton" Command="{Binding Exit}" Content="X" Grid.Column="2" HorizontalAlignment="Right" Grid.Row="2" VerticalAlignment="Bottom" Width="16" BorderBrush="#00707070" Background="#00DDDDDD" FontSize="16" Height="21" Padding="0" VerticalContentAlignment="Top" HorizontalContentAlignment="Center" />
-        <Ellipse Name="ControllerModeIndicator" Grid.Column="2" Fill="#3E00FF00" HorizontalAlignment="Left" Height="15" Margin="87,13,0,0" Grid.Row="2" Stroke="{StaticResource TextBackgroundTransparent}" VerticalAlignment="Top" Width="15" RenderTransformOrigin="0.5,-0.367" Visibility="Hidden"/>
+        <Grid Grid.Column="2" Grid.Row="2" Margin="87,13,0,0" Visibility="{Binding Translation.Init, Converter={StaticResource VisibilityConverter}}">
+            <Ellipse Name="ControllerModeIndicatorOn" Fill="#3E00FF00" HorizontalAlignment="Left" Height="15"  Stroke="{StaticResource TextBackgroundTransparent}" VerticalAlignment="Top" Width="15" RenderTransformOrigin="0.5,-0.367" Visibility="{Binding Interception.ControllerMode, Converter={StaticResource VisibilityConverter}}"/>
+            <Ellipse Name="ControllerModeIndicatorOff" Fill="#3EFF0000" HorizontalAlignment="Left" Height="15"  Stroke="{StaticResource TextBackgroundTransparent}" VerticalAlignment="Top" Width="15" RenderTransformOrigin="0.5,-0.367" Visibility="{Binding Interception.ControllerModeInverse, Converter={StaticResource VisibilityConverter}}"/>
+
+        </Grid>
+        
 
     </Grid>
 </Window>

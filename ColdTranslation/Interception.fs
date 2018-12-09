@@ -2,44 +2,64 @@
 
 open PS4RemotePlayInterceptor
 open Elmish
+open System.Windows
+open Elmish.WPF
 
 
 type Model = 
-  { DPadLeft: bool
+  { ControllerMode: bool
+    DPadLeft: bool
     DPadRight: bool }
 
 let init = 
-  { DPadLeft = false
+  { ControllerMode = false
+    DPadLeft = false
     DPadRight = false }
 
 type Msg =
-  | DPadLeftDown
-  | DPadLeftUp
-  | DPadRightUp
-  | DPadRightDown
+  | InterceptFail
+  | Init
+  | DPadLeft
+  | DPadRight
+
+let initInterception () =
+  try
+    Interceptor.Inject() |> ignore
+  with 
+    | :? System.Exception ->
+      Application.Current.MainWindow.Close()
+      MessageBox.Show(
+          "Error on injecting." +
+          "\nEither Remote Play is not started or something other hinders the injection." +
+          "\nPlease start/restart RemotePlay before restarting Cold Translation.",
+          "Injection Error",
+          MessageBoxButton.OK,
+          MessageBoxImage.Error) |> ignore
+      Application.Current.Shutdown ()
+
+   
 
 let update msg m =
     match msg with
-    | DPadLeftDown ->
+    | InterceptFail -> m,Cmd.none
+    | Init -> m, Cmd.attemptFunc initInterception () raise
+    | DPadLeft ->
       printfn "LEFT DOWN"
-      m
-    | DPadLeftUp -> 
-      printfn "LEFT UP"
-      m
-    | DPadRightDown ->
+      m, Cmd.none
+    | DPadRight ->
       printfn "RIGHT DOWN"
-      m
-    | DPadRightUp ->
-      printfn "RIGHT UP"
-      m
+      m, Cmd.none
+
+let bindings () = 
+  [
+    "ControllerModeInverse" |> Binding.oneWay(fun m -> m.ControllerMode |> not)
+    "ControllerMode" |> Binding.oneWay(fun m -> m.ControllerMode)
+  ]
 
 let subscribe initial =
   let sub dispatch =
     Interceptor.Callback <- fun state -> 
-      ( if state.DPad_Left then
-          dispatch <| DPadLeftDown
-        else 
-          dispatch <| DPadLeftUp
+      ( 
       )
   Cmd.ofSub sub
 

@@ -98,7 +98,8 @@ let update msg m =
     {m with Loading = true},
     Cmd.performFunc 
       loadTranslation 
-      Settings.LastTranslationSheet (fun a -> Translations a)
+      Settings.LastTranslationSheet
+      (fun a -> Translations a)
   | Translations (cs,t) -> 
       Application.Current.MainWindow.Cursor <- null;
       let last = Settings.LastRows |> Seq.tryFind (fun r -> r.Sheet = cs) |> Option.defaultValue (new LastRow(cs,0))
@@ -156,7 +157,8 @@ let bindings () =
     "Speaker" |> Binding.oneWay(fun m -> m.Current.Speaker)
     "Extra"   |> Binding.oneWay(fun m -> m.Current.Extra)
     "Color"   |> Binding.oneWay(fun m -> "#" + m.Current.Color)
-    "Init"    |> Binding.oneWay(fun m -> m.Translations |> Array.isEmpty)
+    "Init"    |> Binding.oneWay(fun m -> m.Translations |> Array.isEmpty |> not)
+    "InitInverse"    |> Binding.oneWay(fun m -> m.Translations |> Array.isEmpty)
     "Next"    |> Binding.cmdIf(fun m -> Next) (fun m -> m.Translations |> Array.isEmpty |> not)
     "Previous"|> Binding.cmdIf(fun m -> Previous) (fun m -> m.Translations |> Array.isEmpty |> not)
     "LoadLast"|> Binding.cmdIf (fun m -> Application.Current.MainWindow.Cursor <- Cursors.Wait; LoadLast) (fun m -> not m.Loading)
