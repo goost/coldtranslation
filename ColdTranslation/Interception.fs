@@ -4,9 +4,9 @@ open PS4RemotePlayInterceptor
 open Elmish
 open System.Windows
 open Elmish.WPF
-open System.Windows.Media.Animation
 
-let mutable Advance = false
+//TODO (goost) Keyboad advance not implemented yet
+let mutable private Advance = false
 
 type Model = 
   { ControllerMode: bool
@@ -23,10 +23,11 @@ type Msg =
   | DPadRight
   | Circle
   | L3
+  | R3
   | SimulateCircleUp
   | SimulateCircleDown
 
-let initInterception () =
+let private initInterception () =
   try
     Interceptor.Inject() |> ignore
   with 
@@ -63,6 +64,7 @@ let subscribe initial =
     let mutable DPadLeft = false
     let mutable DPadRight = false
     let mutable L3 = false
+    let mutable R3 = false
     let mutable Circle = false
     Interceptor.Callback <- fun state -> 
       ( 
@@ -75,6 +77,8 @@ let subscribe initial =
           else if DPadRight then dispatch <| Msg.DPadRight; DPadRight <- false
           if state.L3 then L3 <- true
           else if L3 then dispatch <| Msg.L3; L3 <- false
+          if state.L3 then R3 <- true
+          else if R3 then dispatch <| Msg.L3; R3 <- false
           if state.Circle then Circle <- true
           else if Circle then dispatch <| Msg.Circle; Circle <- false
         if Advance then state.Circle <- true

@@ -1,6 +1,5 @@
 ﻿module ColdTranslation.Translation
 
-open System.Runtime.CompilerServices
 open Elmish.WPF
 open Elmish
 open OfficeOpenXml
@@ -11,13 +10,9 @@ open System.Windows.Input
 open NullCoalese
 open ColdTranslation.Model
 open Microsoft.Win32
-open System
 open System.Reflection
 
-let Settings = Properties.Settings.Default
-let Timer = new System.Windows.Threading.DispatcherTimer(Threading.DispatcherPriority.Loaded)
-let DefaultDelay = 4
-
+let private Settings = Properties.Settings.Default
 
 type T = {
   Speaker: string
@@ -28,12 +23,9 @@ type T = {
 
 type Model = 
   { Current: T
-    SpeechView: string
-    SubStringLength: int
     Loading: bool
     CurrentSheet: string
     Translations: T[]
-    Delay: int
     }
 
 let init =
@@ -42,12 +34,9 @@ let init =
       Speech = "F#Speech"
       Extra = "F#Extra"
       Color = "FF00FF00" }
-    SpeechView = "F#Speaker"
-    SubStringLength = 9
     Loading = false
     CurrentSheet = ""
     Translations = Array.empty
-    Delay = 0
     }
 
 type Msg =
@@ -58,9 +47,8 @@ type Msg =
   | Translations of string * T[]
   | Next
   | Previous
-  | Tick
 
-let loadTranslation path =
+let private loadTranslation path =
   use package = new ExcelPackage(new FileInfo(path))
   package.Compatibility.IsWorksheets1Based <- true
   let selection = 
@@ -96,7 +84,7 @@ let loadTranslation path =
       package.File.Name+":"+currentSheet.Name,
       translations |> Array.mapFold f "" |> fst
     
-let openFileDialog () =
+let private openFileDialog () =
   let dialog = new OpenFileDialog()
   dialog.InitialDirectory <- Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + @""
   dialog.Filter <- "Excel 2007+ Files (*.xlsx)|*.xlsx|All files (*.*)|*.*"
@@ -147,47 +135,21 @@ let update msg m =
         Loading = false
         Translations = t
         CurrentSheet=cs
-        Current = t.[last.Row]
-        Delay= DefaultDelay
-        SubStringLength = 0
-        SpeechView = ""}, Cmd.none
+        Current = t.[last.Row] }, Cmd.none
   | Next -> 
       let last = Settings.LastRows |> Seq.find(fun r -> r.Sheet = m.CurrentSheet)
       let next = new LastRow(last.Sheet, min (m.Translations.Length-1) last.Row+1)
       Settings.LastRows.Remove(last) |> ignore
       Settings.LastRows.Add(next)
       Application.Current.Dispatcher.InvokeAsync(fun () -> Settings.Save()) |> ignore
-      { m with 
-          Current = m.Translations.[next.Row]
-          Delay = DefaultDelay
-          SubStringLength = 0
-          SpeechView =""}, Cmd.none
+      { m with Current = m.Translations.[next.Row]}, Cmd.none
   | Previous ->
       let last = Settings.LastRows |> Seq.find(fun r -> r.Sheet = m.CurrentSheet)
       let previous = new LastRow(last.Sheet, max 0 last.Row-1)
       Settings.LastRows.Remove(last) |> ignore
       Settings.LastRows.Add(previous)
       Application.Current.Dispatcher.InvokeAsync(fun () -> Settings.Save()) |> ignore
-      { m with 
-          Current = m.Translations.[previous.Row]
-          Delay = DefaultDelay
-          SubStringLength = 0
-          SpeechView =""}, Cmd.none
-  | Tick ->
-    match m.Delay with
-    | 0 ->
-      let sv = m.Current.Speech.Substring(0, m.SubStringLength)
-      let nl = m.SubStringLength + 1
-      if nl > m.Current.Speech.Length then Timer.Stop()
-      { m with SpeechView = sv; SubStringLength = nl }, Cmd.none
-    | x -> {m with Delay = m.Delay - 1 }, Cmd.none
-
-let subscribe initial =
-  Timer.Interval <- System.TimeSpan.FromMilliseconds(1.)
-  Timer.Stop()
-  let sub dispatch =
-    Timer.Tick.Add (fun e -> dispatch <| Tick)
-  Cmd.ofSub sub
+      { m with Current = m.Translations.[previous.Row] }, Cmd.none
 
 let bindings () =
   [ "Speech"  |> Binding.oneWay(fun m -> m.Current.Speech)

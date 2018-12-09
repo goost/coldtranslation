@@ -6,11 +6,10 @@ open Elmish.WPF
 open ColdTranslation.Properties
 open System.Windows.Input
 open PS4RemotePlayInterceptor
-open System.Windows.Threading
 
 
 module App =
-  let timer = new System.Timers.Timer(500.)
+  let private timer = new System.Timers.Timer(500.)
 
   type Model =
     { Translation: Translation.Model
@@ -29,7 +28,7 @@ module App =
       Visible = true},
       Cmd.none
 
-  let confirmExit () =
+  let private confirmExit () =
     if MessageBox.Show 
       (
         "Exit Cold Translation?",
@@ -77,7 +76,7 @@ module App =
     "ToggleVisibility"    |> Binding.cmd(fun m -> ToggleVisibility)
     ]
 
-  let timerTick dispatch =
+  let private timerTick dispatch =
     timer.AutoReset <- false
     timer.Elapsed.Add (fun _ -> 
       dispatch <| InterceptionMsg Interception.Msg.Init
@@ -88,11 +87,10 @@ module App =
 
   let subscription model =
     Cmd.batch [ Cmd.map InterceptionMsg (Interception.subscribe model.Interception)
-                Cmd.map TranslationMsg (Translation.subscribe model.Translation)
                 Cmd.ofSub timerTick
                 ]
 
-let createWindow () =
+let private createWindow () =
   let window = Views.MainWindow()
   window.Top <- Settings.Default.Top
   window.Left <- Settings.Default.Left
@@ -114,7 +112,7 @@ let createWindow () =
   window
 
 [<EntryPoint; STAThread>]
-let main argv =
+let main _argv =
   if Settings.Default.UpgradeRequired then
     Settings.Default.Upgrade()
     Settings.Default.UpgradeRequired <- false
@@ -125,24 +123,11 @@ let main argv =
 
   Interceptor.InjectionMode <- InjectionMode.Compatibility
   Interceptor.EmulateController <- false
-
-  let d m : Func<'T> = Func<'T>(fun () -> m )
-  let u = {
-    Program.init = App.init
-    Program.update = App.update
-    Program.view = App.bindings
-    setState = fun model  -> App.bindings model >> ignore
-    subscribe = fun _ -> Cmd.none
-    onError = fun _ -> Interceptor.StopInjection()
-    syncDispatch = fun m ->  Application.Current.Dispatcher.Invoke(d m)
-  }
-  let p = Program.mkProgram App.init App.update App.bindings
-  
-  
-  p
+ 
+  Program.mkProgram App.init App.update App.bindings
   |> Program.withErrorHandler (fun _ -> Interceptor.StopInjection())
   |> Program.withSubscription App.subscription
-  |> Program.withConsoleTrace
+  //|> Program.withConsoleTrace
   |> Program.runWindowWithConfig
-      { ElmConfig.Default with LogConsole = true }
+      { ElmConfig.Default with LogConsole = false }
       (window)
