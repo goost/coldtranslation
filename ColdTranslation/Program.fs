@@ -14,18 +14,19 @@ module App =
 
   type Model =
     { Translation: Translation.Model
-      Interception: Interception.Model }
+      Interception: Interception.Model
+      Visible: bool}
 
   type Msg =
-    | Pick
-    | LoadLast
     | Exit
+    | ToggleVisibility
     | InterceptionMsg of Interception.Msg
     | TranslationMsg of Translation.Msg
 
   let init () =
     { Translation = Translation.init
-      Interception = Interception.init },
+      Interception = Interception.init
+      Visible = true},
       Cmd.none
 
   let confirmExit () =
@@ -42,11 +43,21 @@ module App =
 
   let update msg m =
     match msg with
-    | Pick -> init ()
+    | ToggleVisibility -> {m with Visible = not m.Visible}, Cmd.none
     | Exit -> m, Cmd.attemptFunc confirmExit () raise
     | InterceptionMsg msg ->
-      let nm,cmd = Interception.update msg m.Interception
-      { m with Interception =nm}, Cmd.map InterceptionMsg cmd
+      match msg with
+      | Interception.Msg.Circle ->
+        m,Cmd.ofMsg (TranslationMsg Translation.Msg.Next)
+      | Interception.Msg.DPadRight ->
+        m,Cmd.ofMsg (TranslationMsg Translation.Msg.Next)
+      | Interception.Msg.DPadLeft ->
+        m,Cmd.ofMsg (TranslationMsg Translation.Msg.Previous)
+      | Interception.Msg.L3 ->
+        m,Cmd.ofMsg ToggleVisibility
+      | _ ->
+        let nm,cmd = Interception.update msg m.Interception
+        { m with Interception =nm}, Cmd.map InterceptionMsg cmd
     | TranslationMsg msg ->
       let nm,cmd = Translation.update msg m.Translation
       { m with Translation = nm}, Cmd.map TranslationMsg cmd
@@ -62,6 +73,8 @@ module App =
       Interception.bindings
       InterceptionMsg
     "Exit"    |> Binding.cmd (fun m -> Exit)
+    "Visible" |> Binding.oneWay(fun m-> m.Visible )
+    "ToggleVisibility"    |> Binding.cmd(fun m -> ToggleVisibility)
     ]
 
   let timerTick dispatch =

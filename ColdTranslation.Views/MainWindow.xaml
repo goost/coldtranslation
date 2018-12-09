@@ -6,7 +6,8 @@
         xmlns:local="clr-namespace:ColdTranslation.Views"
         mc:Ignorable="d"
         Title="Cold Translation" Height="160" Width="800" ResizeMode="NoResize" Visibility="Visible" WindowStyle="None"
-        Background="#01000000" AllowsTransparency="True" Topmost="True" Icon="pack://siteoforigin:,,,/Resources/icon.ico">
+        Background="#01000000" AllowsTransparency="True" Topmost="True" Icon="pack://siteoforigin:,,,/Resources/icon.ico"
+        >
     <Window.Resources>
         <ResourceDictionary>
             <SolidColorBrush x:Key="TextBackground" Color="#DDA0A0A0"></SolidColorBrush>
@@ -18,6 +19,7 @@
         <KeyBinding Command="{Binding Exit}" Gesture="ESC"></KeyBinding>
         <KeyBinding Command="{Binding Translation.Next}" Key="Right"></KeyBinding>
         <KeyBinding Command="{Binding Translation.Previous}" Key="Left"></KeyBinding>
+        <KeyBinding Command="{Binding ToggleVisibility}" Gesture="End"></KeyBinding>
     </Window.InputBindings>
     <Grid>
         <Grid.ColumnDefinitions>
@@ -30,11 +32,17 @@
             <RowDefinition Height="101*"/>
             <RowDefinition Height="29*"/>
         </Grid.RowDefinitions>
-        <TextBlock Name="SpeakerBox" HorizontalAlignment="Left" Margin="3,3,0,0" TextWrapping="WrapWithOverflow" Text="{Binding Translation.Speaker}" VerticalAlignment="Top" FontSize="20" Background="{StaticResource TextBackground}"  FontWeight="Bold" Padding="0" />
+        <Border Visibility="{Binding Visible, Converter={StaticResource VisibilityConverter}}">
+            <TextBlock Name="SpeakerBox" HorizontalAlignment="Left" Margin="3,3,0,0" TextWrapping="WrapWithOverflow" Text="{Binding Translation.Speaker}" VerticalAlignment="Top" FontSize="20" Background="{StaticResource TextBackground}"  FontWeight="Bold" Padding="0" />
+        </Border>
         <TextBlock Name="SpeechBoxHidden" Visibility="Collapsed" Margin="10,25,0,0"  TextWrapping="WrapWithOverflow" Text="{Binding Translation.Speech, NotifyOnTargetUpdated=True}" VerticalAlignment="Top"  Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" FontSize="24" Background="{StaticResource TextBackground}" FontWeight="Bold" HorizontalAlignment="Left" Padding="0" />
-        <TextBlock Name="SpeechBox" Visibility=" Visible" Margin="10,5,0,0"  TextWrapping="WrapWithOverflow" Foreground="{Binding Translation.Color}"  VerticalAlignment="Top"  Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" FontSize="24" Background="{StaticResource TextBackground}" FontWeight="Bold" HorizontalAlignment="Left" Padding="0" />
-        <TextBlock Name="ExtraBox" HorizontalAlignment="Left" Margin="3,3,0,0" TextWrapping="WrapWithOverflow" Text="{Binding Translation.Extra}" VerticalAlignment="Top" Grid.Row="2" Grid.Column="0" FontFamily="Meiryo UI" Background="{StaticResource TextBackground}" FontWeight="Bold" FontSize="16" Padding="0" />
-        <Button Name="PickSheetButton" Visibility="{Binding Translation.InitInverse, Converter={StaticResource VisibilityConverter}}" Content="Pick Sheet" Grid.Row="0" Grid.Column="1" Margin="2"/>
+        <Border Visibility="{Binding Visible, Converter={StaticResource VisibilityConverter}}" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" >
+            <TextBlock Name="SpeechBox" Visibility=" Visible" Margin="10,5,0,0"  TextWrapping="WrapWithOverflow" Foreground="{Binding Translation.Color}"  VerticalAlignment="Top"  FontSize="24" Background="{StaticResource TextBackground}" FontWeight="Bold" HorizontalAlignment="Left" Padding="0" />
+        </Border>
+        <Border Visibility="{Binding Visible, Converter={StaticResource VisibilityConverter}}" Grid.Row="2" Grid.Column="0">
+            <TextBlock Name="ExtraBox" HorizontalAlignment="Left" Margin="3,3,0,0" TextWrapping="WrapWithOverflow" Text="{Binding Translation.Extra}" VerticalAlignment="Top"  FontFamily="Meiryo UI" Background="{StaticResource TextBackground}" FontWeight="Bold" FontSize="16" Padding="0" />
+        </Border>
+        <Button Name="PickSheetButton" Visibility="{Binding Translation.InitInverse, Converter={StaticResource VisibilityConverter}}" Command="{Binding Translation.PickSpreadsheet}" Content="Pick Sheet" Grid.Row="0" Grid.Column="1" Margin="2"/>
         <Button Name="LastSheetButton" Visibility="{Binding Translation.InitInverse, Converter={StaticResource VisibilityConverter}}" Command="{Binding Translation.LoadLast}" Content="Last Sheet" Grid.Row="0" Grid.Column="2" Margin="2"/>
         <Button Name="ExitButton" Command="{Binding Exit}" Content="X" Grid.Column="2" HorizontalAlignment="Right" Grid.Row="2" VerticalAlignment="Bottom" Width="16" BorderBrush="#00707070" Background="#00DDDDDD" FontSize="16" Height="21" Padding="0" VerticalContentAlignment="Top" HorizontalContentAlignment="Center" />
         <Grid Grid.Column="2" Grid.Row="2" Margin="87,13,0,0" Visibility="{Binding Translation.Init, Converter={StaticResource VisibilityConverter}}">
