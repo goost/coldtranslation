@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Reflection;
-using System.Drawing;
 using System.Xml.Serialization;
 using ColdTranslation.Model;
 
@@ -35,6 +35,28 @@ namespace ColdTranslation.Legacy
                 var obj = deserializer.Deserialize(reader);
                 var settings = obj as Settings;
                 return settings;
+            }
+        }
+        
+
+        public static Settings OldSettings
+        {
+            get
+            {
+                try
+                {
+                    if (!File.Exists(SettingsPath)) return null;
+                    var settings = Deserialize(SettingsPath);
+                    File.Move(SettingsPath, $"{SettingsPath}.old");
+                    return settings;
+                }
+                catch (Exception)
+                {
+                    return null;
+                }
+
+
+
             }
         }
     }

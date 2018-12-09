@@ -1,9 +1,0 @@
-﻿<Application x:Class="ColdTranslation.App"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             StartupUri="MainWindow.xaml">
-    <Application.Resources>
-         <SolidColorBrush x:Key="TextBackground" Color="#DDA0A0A0"></SolidColorBrush>
-        <SolidColorBrush x:Key="TextBackgroundTransparent" Color="#01A0A0A0"></SolidColorBrush>
-    </Application.Resources>
-</Application>

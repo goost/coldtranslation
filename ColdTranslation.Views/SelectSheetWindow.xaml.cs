@@ -10,18 +10,18 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace ColdTranslation.View
+namespace ColdTranslation.Views
 {
     /// <summary>
     /// Interaction logic for SelectSheetWindow.xaml
     /// </summary>
     public partial class SelectSheetWindow : Window
     {
-
         public bool IsSen4Mode => Sen4Radio.IsChecked.HasValue && Sen4Radio.IsChecked.Value;
-        public string SelectedSheet => (string) SheetBox.SelectedItem;
+        public string SelectedSheet => (string)SheetBox.SelectedItem;
 
         public SelectSheetWindow(IEnumerable<string> sheets, bool isSen4Mode)
         {
