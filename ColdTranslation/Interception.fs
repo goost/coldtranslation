@@ -77,7 +77,7 @@ let subscribe initial =
           else if DPadRight then dispatch <| Msg.DPadRight; DPadRight <- false
           if state.L3 then L3 <- true
           else if L3 then dispatch <| Msg.L3; L3 <- false
-          if state.L3 then R3 <- true
+          if state.R3 then R3 <- true
           else if R3 then dispatch <| Msg.L3; R3 <- false
           if state.Circle then Circle <- true
           else if Circle then dispatch <| Msg.Circle; Circle <- false

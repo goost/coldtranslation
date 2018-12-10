@@ -3,7 +3,7 @@
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>net472</TargetFramework>
-    <Version>1.0.0</Version>
+    <Version>1.0.1</Version>
     <Win32Resource>G:\Development\Projects\desktop\goost\ColdTranslation\ColdTranslation\Resources\res.res</Win32Resource>
   </PropertyGroup>
 
