@@ -38,7 +38,7 @@ on top of the PS4 Remote Play window.
 - `DPad Left`: Previous Line (when in Controller Control Mode)
 - `DPad Right`: Next Line (when in Controller Control Mode)
 - `L3`: Show/Hide all Text (same as R3) (when in Controller Control Mode)
-- `R3`: Show/Hide all Text (same as L3) Control Mode)
+- `R3`: Show/Hide all Text (same as L3) (when in Controller Control Mode)
 - `Circle`: Previous Line (when in Controller Control Mode)
 
 ## Installation
