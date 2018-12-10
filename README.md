@@ -25,12 +25,12 @@ on top of the PS4 Remote Play window.
 
 #### Controller (always working)
 
-- `Touch touch button` (__not__ press): Toggles Controller Control Mode on/off  
+- `Touch button (touch)` (__not__ press): Toggles Controller Control Mode on/off  
   A <font color="green">_green ○_</font> in the right corner means _controller control mode active_,
   a <font color="red">_red ○_</font> means _inactive_.
-  Advancing the dialog via the button mentioned below only works in active controller control mode!  
+  Advancing the dialog via the buttons mentioned below only works in active controller control mode!  
   ( Unfortunately, a press is also a touch,
-  so opening the notebook toggles controller control mode too. 
+  so opening the NOTEs toggles controller control mode too. 
   This is easily fixed by touching again.
   Another button feasible would be `Share`, but this would block the `Share` completely,
   removing the ability to make screenshots etc.  
@@ -57,7 +57,7 @@ on top of the PS4 Remote Play window.
     - You may need to start with Administrator privileges, depending on the UAC settings.
     - First, try without
 7. Reposition the DialogBox however you like, it always stays on top all windows
- (by _click_drag_ anywhere in the dialog window, e.g. the labels)
+ (by _click-drag_ anywhere in the dialog window, e.g. the labels)
     - The last location is automatically restored on next start
 7. Load a translation spreadsheet by fast-loading the last one or picking one via the dialog
     - The spreadsheet must be in `XLSX` format, obtain by downloading from the Google Spreadsheet
