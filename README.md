@@ -51,13 +51,13 @@ on top of the PS4 Remote Play window.
     - For people upgrading from the old plugin version, place the `ColdTranslation.xml`
       , which is in the same folder as the old `ColdTranslation.dll`,
       in the same folder as `ColdTranslation.exe`.
-      During the first start the old settings will be automatically imported.
+      During the first start the old settings will be automatically imported
 3. Start PS4 Remote Play
 4. Start `ColdTranslation.exe`
     - You may need to start with Administrator privileges, depending on the UAC settings.
     - First, try without
 7. Reposition the DialogBox however you like, it always stays on top all windows
- (by _click_drag_ anywhere of the dialog window, e.g. the labels)
+ (by _click_drag_ anywhere in the dialog window, e.g. the labels)
     - The last location is automatically restored on next start
 7. Load a translation spreadsheet by fast-loading the last one or picking one via the dialog
     - The spreadsheet must be in `XLSX` format, obtain by downloading from the Google Spreadsheet
