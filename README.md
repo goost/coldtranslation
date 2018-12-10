@@ -26,8 +26,8 @@ on top of the PS4 Remote Play window.
 #### Controller (always working)
 
 - `Touch touch button` (__not__ press): Toggles Controller Control Mode on/off  
-  A <font color="green">○</font> in the right corner means active controller control mode,
-  a <font color="red">○</font> means inactive.
+  A <font color="green">green ○</font> in the right corner means active controller control mode,
+  a <font color="red">red ○</font> means inactive.
   Advancing the dialog via the button mentioned below only works in active controller control mode!  
   ( Unfortunately, a press is also a touch,
   so opening the notebook toggles controller control mode too. 
