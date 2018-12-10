@@ -41,26 +41,6 @@ on top of the PS4 Remote Play window.
 - `R3`: Show/Hide all Text (same as L3) Control Mode)
 - `Circle`: Previous Line (when in Controller Control Mode)
 
-## How does _Simulate press of ○ (`Circle`)_ works
-
-The DialogBox shows the text not instanly,
-but in the same fashion as the game (it gets build up in a second or so, see the gif below for visualization).
-While I did try to match the timing of the text to the timing in the game,
-it only lines somewhat up if there are no cuts or something other in between the dialogs.
-To have the best "in-sync" experience, one should press the `Arrow Down Key` after _both_ dialogs are completly displayed
-(again, look at the video down below, each advance there is only one press of `Arrow Key Down`).
-
-The `Arrow Key Down` press mimics the behaviour of the `Circle` press in the game, this specifically means:
-
-- If one presses `Arrow Key Down` while the text in the DialogBox __is not__ completly shown, the text will instantly be shown,
- but no advance to the next line happens
-   - This is the same behaviour, as when one presses `Circle` in the game, while the text is not fully shown
-- If one presses `Arrow Key Down` while the text in the DialogBox __is__ completly shown, the text will advance to the next line
-- A `Circle` press is always simulated, regardless of the state of the text
-
-After some feedback, I realize that this behaviour (not always advancing, but first showing the full text) can cause confusion.
-Therefore it is possible that this will change in the future.
-
 ## Installation
 
 1. Download and extract the latest release [here](https://github.com/goost/coldtranslation/releases/)
