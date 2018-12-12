@@ -21,6 +21,7 @@
         <KeyBinding Command="{Binding Translation.Next}" Key="Right"></KeyBinding>
         <KeyBinding Command="{Binding Translation.Previous}" Key="Left"></KeyBinding>
         <KeyBinding Command="{Binding ToggleVisibility}" Gesture="End"></KeyBinding>
+        <KeyBinding Command="{Binding ToggleExtra}" Gesture="Delete"></KeyBinding>
     </Window.InputBindings>
     <Grid>
         <Grid.ColumnDefinitions>
@@ -41,7 +42,7 @@
             <TextBlock Name="SpeechBox" Visibility=" Visible" Margin="10,5,0,0"  TextWrapping="WrapWithOverflow" Foreground="{Binding Translation.Color}"  VerticalAlignment="Top"  FontSize="24" Background="{Binding TextBackgroundColor}" FontWeight="Bold" HorizontalAlignment="Left" Padding="0" />
         </Border>
         <Border Visibility="{Binding Visible, Converter={StaticResource VisibilityConverter}}" Grid.Row="2" Grid.Column="0">
-            <TextBlock Name="ExtraBox" HorizontalAlignment="Left" Margin="3,3,0,0" TextWrapping="WrapWithOverflow" Text="{Binding Translation.Extra}" VerticalAlignment="Top"  FontFamily="Meiryo UI" Background="{Binding TextBackgroundColor}" FontWeight="Bold" FontSize="16" Padding="0" />
+            <TextBlock Visibility ="{Binding ExtraVisible, Converter={StaticResource VisibilityConverter}}" Name="ExtraBox" HorizontalAlignment="Left" Margin="3,3,0,0" TextWrapping="WrapWithOverflow" Text="{Binding Translation.Extra}" VerticalAlignment="Top"  FontFamily="Meiryo UI" Background="{Binding TextBackgroundColor}" FontWeight="Bold" FontSize="16" Padding="0" />
         </Border>
         <Button Name="PickSheetButton" Visibility="{Binding Translation.InitInverse, Converter={StaticResource VisibilityConverter}}" Command="{Binding Translation.PickSpreadsheet}" Content="Pick Sheet" Grid.Row="0" Grid.Column="1" Margin="2"/>
         <Button Name="LastSheetButton" Visibility="{Binding Translation.InitInverse, Converter={StaticResource VisibilityConverter}}" Command="{Binding Translation.LoadLast}" Content="Last Sheet" Grid.Row="0" Grid.Column="2" Margin="2"/>

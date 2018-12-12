@@ -129,24 +129,25 @@ let update msg m =
   | Translations (cs,t) -> 
       Application.Current.MainWindow.Cursor <- null;
       let last = Settings.LastRows |> Seq.tryFind (fun r -> r.Sheet = cs) |> Option.defaultValue (new LastRow(cs,0))
+      let safetyBelt = if last.Row < 0 then new LastRow(cs, 0) else last
       Settings.LastRows.Remove(last) |> ignore
-      Settings.LastRows.Add(last)
+      Settings.LastRows.Add(safetyBelt)
       Keyboard.Focus(Application.Current.MainWindow) |> ignore
       {m with 
         Loading = false
         Translations = t
         CurrentSheet=cs
-        Current = t.[last.Row] }, Cmd.none
+        Current = t.[safetyBelt.Row] }, Cmd.none
   | Next -> 
       let last = Settings.LastRows |> Seq.find(fun r -> r.Sheet = m.CurrentSheet)
-      let next = new LastRow(last.Sheet, min (m.Translations.Length-1) last.Row+1)
+      let next = new LastRow(last.Sheet, min (m.Translations.Length-1) (last.Row+1))
       Settings.LastRows.Remove(last) |> ignore
       Settings.LastRows.Add(next)
       Application.Current.Dispatcher.InvokeAsync(fun () -> Settings.Save()) |> ignore
       { m with Current = m.Translations.[next.Row]}, Cmd.none
   | Previous ->
       let last = Settings.LastRows |> Seq.find(fun r -> r.Sheet = m.CurrentSheet)
-      let previous = new LastRow(last.Sheet, max 0 last.Row-1)
+      let previous = new LastRow(last.Sheet, max 0 (last.Row-1))
       Settings.LastRows.Remove(last) |> ignore
       Settings.LastRows.Add(previous)
       Application.Current.Dispatcher.InvokeAsync(fun () -> Settings.Save()) |> ignore

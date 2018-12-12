@@ -20,11 +20,13 @@ module App =
     { Translation: Translation.Model
       Interception: Interception.Model
       Visible: bool
+      ExtraVisible: bool
       TextBackgroundColor: string}
 
   type Msg =
     | Exit
     | ToggleVisibility
+    | ToggleExtra
     | TextBackgroundColorChange of string
     | InterceptionMsg of Interception.Msg
     | TranslationMsg of Translation.Msg
@@ -33,6 +35,7 @@ module App =
     { Translation = Translation.init
       Interception = Interception.init
       Visible = true
+      ExtraVisible = true
       TextBackgroundColor = Settings.Default.TextBackgroundColor},
       Cmd.none
 
@@ -54,6 +57,7 @@ module App =
       Settings.Default.TextBackgroundColor <- nc
       {m with TextBackgroundColor = nc}, Cmd.none
     | ToggleVisibility -> {m with Visible = not m.Visible}, Cmd.none
+    | ToggleExtra -> {m with ExtraVisible = not m.ExtraVisible}, Cmd.none
     | Exit -> m, Cmd.attemptFunc confirmExit () raise
     | InterceptionMsg msg ->
       match msg with
@@ -82,9 +86,11 @@ module App =
       (fun m -> m.Interception)
       Interception.bindings
       InterceptionMsg
-    "Exit"    |> Binding.cmd (fun m -> Exit)
-    "Visible" |> Binding.oneWay(fun m-> m.Visible )
+    "Exit"                |> Binding.cmd (fun m -> Exit)
+    "Visible"             |> Binding.oneWay(fun m-> m.Visible )
+    "ExtraVisible"        |> Binding.oneWay(fun m-> m.ExtraVisible )
     "ToggleVisibility"    |> Binding.cmd(fun m -> ToggleVisibility)
+    "ToggleExtra"         |> Binding.cmd(fun m -> ToggleExtra)
     "TextBackgroundColorPicker" |> Binding.twoWay (fun m-> ColorConverter.ConvertFromString(m.TextBackgroundColor) :?> Color) (fun c m -> TextBackgroundColorChange (c.ToString())) 
     "TextBackgroundColor" |> Binding.oneWay (fun m-> m.TextBackgroundColor) 
     ]
