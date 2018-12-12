@@ -19,6 +19,7 @@ on top of the PS4 Remote Play window.
 
 - `Arrow Key Right`: Next Line
 - `Arrow Key Left`: Previous Line
+- `Key Delete`: Show/Hide Extra Text
 - `Key End`: Show/Hide all the text
 - `Key ESC`: Close the application  
   ( also possible by pressing the `X` in the right corner )
@@ -101,7 +102,7 @@ on top of the PS4 Remote Play window.
 
 #### Error during start, along the line _Could not load file or assembly 'ColdTranslation[...]' or one of its dependencies. Operation is not supported. (Exception from HRESULT: 0x80131515)_
 
-Windows blocks potentialy harmful files from the internet. After downloading the zip-File it must be _unblocked_.
+Windows blocks potentially harmful files from the internet. After downloading the zip-File it must be _unblocked_.
 `Right-Click -> Properties` and then `Unblock` before extracting.
 See e.g. [this](https://stackoverflow.com/questions/34400546/could-not-load-file-or-assembly-operation-is-not-supported-exception-from-hres)
 question on stackoverflow for more information.  
@@ -109,7 +110,8 @@ As long as it is alpha, I do not plan to provide an installer.
 
 ## Version
 
-- v1.1.1 - ALPHA: Fix possible array underflow when navigating to previous line on first line
+- v1.2.0 - ALPHA: `Key Delete` - Show/Hide Extra text; more bugfixes regarding empty settings
+- v1.1.1 - ALPHA: Fix possible array underflow when navigating to previous line on firs
 - v1.1.0 - ALPHA: Added ColorPicker for choosing text background color
 - v1.0.0 - ALPHA: BREAKING - Rewrite of application with Elmish.WPF as standalone
 - v0.6.0 - ALPHA: Add shortcut for showing/hiding the taskbar

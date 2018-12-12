@@ -128,6 +128,7 @@ let update msg m =
     { m with Loading = false}, Cmd.none
   | Translations (cs,t) -> 
       Application.Current.MainWindow.Cursor <- null;
+      if Settings.LastRows = null then Settings.LastRows <- new System.Collections.Generic.List<LastRow>()
       let last = Settings.LastRows |> Seq.tryFind (fun r -> r.Sheet = cs) |> Option.defaultValue (new LastRow(cs,0))
       let safetyBelt = if last.Row < 0 then new LastRow(cs, 0) else last
       Settings.LastRows.Remove(last) |> ignore

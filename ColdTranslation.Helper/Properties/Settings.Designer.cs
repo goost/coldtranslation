@@ -37,7 +37,7 @@ namespace ColdTranslation.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("\"\"")]
         public string LastTranslationSheet {
             get {
                 return ((string)(this["LastTranslationSheet"]));

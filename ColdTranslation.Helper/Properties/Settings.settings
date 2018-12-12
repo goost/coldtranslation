@@ -6,7 +6,7 @@
       <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="LastTranslationSheet" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
+      <Value Profile="(Default)">""</Value>
     </Setting>
     <Setting Name="Sen4Mode" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
