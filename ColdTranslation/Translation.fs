@@ -101,14 +101,14 @@ let update msg m =
     Cmd.ofFunc
       openFileDialog
       ()
-      (fun a -> if a <> "" then Picked a else LoadingError "")
-      (fun _ -> LoadingError "")
+      (fun a -> if a <> "" then Picked a else LoadingError "You closed the file dialog. Please select it again to load a translation sheet.")
+      (fun e -> LoadingError ("There was an error during file load. The message is\n" + e.Message + "\nPlease provide this when asking for support."))
   | Picked path ->
     {m with Loading = true},
     Cmd.ofFunc 
       loadTranslation 
       path
-      (fun a -> Translations a)
+      (fun a -> if (fst a) <> "" then Translations a else LoadingError "Error on selecting sheet. Did you closed the selection window not via the button?")
       (fun _ -> LoadingError "Could not load provided XLSX. Is it a translation sheet?")
   | LoadLast -> 
     {m with Loading = true},
@@ -118,6 +118,7 @@ let update msg m =
       (fun a -> Translations a)
       (fun _ -> LoadingError "Could not load last loaded XLSX. Was the file deleted?")
   | LoadingError message ->
+    Application.Current.MainWindow.Cursor <- null
     if message <> "" then
       MessageBox.Show(
         message,

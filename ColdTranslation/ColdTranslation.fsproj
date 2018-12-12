@@ -3,8 +3,12 @@
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>net472</TargetFramework>
-    <Version>1.0.1</Version>
+    <Version>1.1.0</Version>
     <Win32Resource>G:\Development\Projects\desktop\goost\ColdTranslation\ColdTranslation\Resources\res.res</Win32Resource>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
   </PropertyGroup>
 
   <ItemGroup>
@@ -49,8 +53,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Elmish" Version="3.0.0-beta-2" />
-    <PackageReference Include="Elmish.WPF" Version="2.0.0-beta-6" />
+    <PackageReference Include="Elmish" Version="3.0.0-beta-4" />
+    <PackageReference Include="Elmish.WPF" Version="2.0.0-beta-7" />
     <PackageReference Include="EPPlus" Version="4.5.2.1" />
     <PackageReference Include="PS4RemotePlayInterceptor" Version="0.5.2" />
   </ItemGroup>

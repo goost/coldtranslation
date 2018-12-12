@@ -29,6 +29,8 @@ namespace ColdTranslation.Views
         {
             InitializeComponent();
 
+            
+
             SpeechBoxHidden.TargetUpdated += (s, e) =>
             {
                 var speech = e.TargetObject.GetValue(TextBlock.TextProperty) as string;

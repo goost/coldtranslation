@@ -105,5 +105,17 @@ namespace ColdTranslation.Properties {
                 this["Left"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("#DDA0A0A0")]
+        public string TextBackgroundColor {
+            get {
+                return ((string)(this["TextBackgroundColor"]));
+            }
+            set {
+                this["TextBackgroundColor"] = value;
+            }
+        }
     }
 }

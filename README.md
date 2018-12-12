@@ -109,6 +109,7 @@ As long as it is alpha, I do not plan to provide an installer.
 
 ## Version
 
+- v1.1.0 - ALPHA: Added ColorPicker for choosing text background color
 - v1.0.0 - ALPHA: BREAKING - Rewrite of application with Elmish.WPF as standalone
 - v0.6.0 - ALPHA: Add shortcut for showing/hiding the taskbar
 - v0.5.0 - ALPHA: Add Speaker-Mode selection (no more guessing needed for Sen4)

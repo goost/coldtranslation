@@ -6,26 +6,34 @@ open Elmish.WPF
 open ColdTranslation.Properties
 open System.Windows.Input
 open PS4RemotePlayInterceptor
+open System.IO
+open System.Reflection
+open System.Diagnostics
 
 
 module App =
+  open System.Windows.Media
+
   let private timer = new System.Timers.Timer(500.)
 
   type Model =
     { Translation: Translation.Model
       Interception: Interception.Model
-      Visible: bool}
+      Visible: bool
+      TextBackgroundColor: string}
 
   type Msg =
     | Exit
     | ToggleVisibility
+    | TextBackgroundColorChange of string
     | InterceptionMsg of Interception.Msg
     | TranslationMsg of Translation.Msg
 
   let init () =
     { Translation = Translation.init
       Interception = Interception.init
-      Visible = true},
+      Visible = true
+      TextBackgroundColor = Settings.Default.TextBackgroundColor},
       Cmd.none
 
   let private confirmExit () =
@@ -42,6 +50,9 @@ module App =
 
   let update msg m =
     match msg with
+    | TextBackgroundColorChange nc -> 
+      Settings.Default.TextBackgroundColor <- nc
+      {m with TextBackgroundColor = nc}, Cmd.none
     | ToggleVisibility -> {m with Visible = not m.Visible}, Cmd.none
     | Exit -> m, Cmd.attemptFunc confirmExit () raise
     | InterceptionMsg msg ->
@@ -74,6 +85,8 @@ module App =
     "Exit"    |> Binding.cmd (fun m -> Exit)
     "Visible" |> Binding.oneWay(fun m-> m.Visible )
     "ToggleVisibility"    |> Binding.cmd(fun m -> ToggleVisibility)
+    "TextBackgroundColorPicker" |> Binding.twoWay (fun m-> ColorConverter.ConvertFromString(m.TextBackgroundColor) :?> Color) (fun c m -> TextBackgroundColorChange (c.ToString())) 
+    "TextBackgroundColor" |> Binding.oneWay (fun m-> m.TextBackgroundColor) 
     ]
 
   let private timerTick dispatch =
@@ -121,13 +134,41 @@ let main _argv =
   
   let window = createWindow()
 
+  #if DEBUG
+  let tracePath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "MessageTrace.log");
+  use file = File.AppendText(tracePath)
+  file.WriteLineAsync("################# NEW START ###################") |> ignore
+  let fileTrace (msg: App.Msg) (model: App.Model) =
+    file.WriteLine "------Update-----" |> ignore
+    //printfn "Current Message: %s" (msg.ToString())
+    let updatedModel = if model.Translation.Translations.Length <> 0 then
+                        { model with Translation = {model.Translation with Translations = Array.take 3 <| model.Translation.Translations } }
+                       else 
+                         model 
+    //printfn "%s" (updatedModel.ToString())
+    file.WriteLine(">>>> Current Model") |> ignore
+    file.WriteLine(updatedModel.ToString()) |> ignore
+    file.WriteLine(">>>> Current Message: " + msg.ToString()) |> ignore
+    file.Flush() |> ignore
+  #endif
+
+
+
+
   Interceptor.InjectionMode <- InjectionMode.Compatibility
   Interceptor.EmulateController <- false
  
   Program.mkProgram App.init App.update App.bindings
   |> Program.withErrorHandler (fun _ -> Interceptor.StopInjection())
   |> Program.withSubscription App.subscription
-  //|> Program.withConsoleTrace
+#if DEBUG
+  |> Program.withConsoleTrace
+  |> Program.withTrace fileTrace
+  |> Program.runWindowWithConfig
+      { ElmConfig.Default with LogConsole = true }
+      (window)
+#else
   |> Program.runWindowWithConfig
       { ElmConfig.Default with LogConsole = false }
       (window)
+#endif
